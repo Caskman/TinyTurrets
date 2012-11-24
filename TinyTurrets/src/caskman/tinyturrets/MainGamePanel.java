@@ -95,10 +95,7 @@ public class MainGamePanel extends SurfaceView implements
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
-		canvas.drawColor(Color.BLACK);
-		for (Layer l : layers) {
-			l.draw(canvas, INTERPOL);
-		}
+		model.draw(canvas,INTERPOL);
 	}
 
 	public void setPause(boolean pause) {

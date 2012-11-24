@@ -7,6 +7,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.PointF;
 import android.view.MotionEvent;
 import caskman.tinyturrets.model.entities.Bullet;
@@ -21,6 +23,7 @@ public class GameModel {
 	List<Mob> turrets;
 	List<Mob> bullets;
 	BlockingQueue<InputAction> inputQueue;
+	List<Layer> layers;
 	
 	
 	public GameModel(Context context,Dimension dims) {
@@ -55,6 +58,7 @@ public class GameModel {
 		turrets = new ArrayList<Mob>();
 		bullets = new ArrayList<Mob>();
 		inputQueue = new ArrayBlockingQueue<InputAction>(10);
+		layers = getLayerList();
 	}
 	
 	public List<Layer> getLayerList() {
@@ -137,5 +141,11 @@ public class GameModel {
 		
 	}
 	
+	public void draw(Canvas canvas,float interpol) {
+		canvas.drawColor(Color.BLACK);
+		for (Layer l : layers) {
+			l.draw(canvas, interpol);
+		}
+	}
 	
 }
