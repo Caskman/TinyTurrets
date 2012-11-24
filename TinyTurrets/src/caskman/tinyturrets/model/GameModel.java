@@ -25,7 +25,8 @@ public class GameModel {
 	BlockingQueue<InputAction> inputQueue;
 	List<Layer> layers;
 	Vector offset;
-	float offsetDecayFactor = .66F;
+	float offsetDecayFactor = .5F;
+	float SCREEN_SHAKE_FACTOR = 15.0F;
 	
 	
 	public GameModel(Context context,Dimension dims) {
@@ -153,11 +154,12 @@ public class GameModel {
 	}
 	
 	private Vector updateOffset(Vector offset,float offsetDecayFactor,int impulse) {
-		Vector tempOffset = Vector.scalar(offsetDecayFactor, offset);
+		Vector tempOffset = Vector.scalar(-1.0F*offsetDecayFactor, offset);
 		
 		if (impulse > 0) {
-			float xImpulse = impulse*r.nextFloat();
-			float yImpulse = impulse*r.nextFloat();
+			float half = SCREEN_SHAKE_FACTOR/2;
+			float xImpulse = impulse*r.nextFloat()*SCREEN_SHAKE_FACTOR - half;
+			float yImpulse = impulse*r.nextFloat()*SCREEN_SHAKE_FACTOR - half;
 			tempOffset = Vector.add(new Vector(xImpulse,yImpulse), tempOffset);
 		}
 		return tempOffset;
