@@ -24,10 +24,18 @@ public class Explosion extends Mob {
 	private int duration;
 	private final static int ALPHA_DELTA = ((int)((0xff/MAX_DURATION)/PERCENT_ALPHA)) << 24;
 	private final static int VISIBLE_DURATION = (int) (MAX_DURATION*PERCENT_ALPHA);
+	static int SPLATTER_SIZE = 5;
+	static int SPLATTER_OPACITY = 0x3f;
+	int parentColor;
+	Paint parentPaint;
+	
 
-	public Explosion(GameModel model,float x, float y) {
+	public Explosion(GameModel model,float x, float y,int parentColor) {
 		super(model);
 		
+		this.parentColor = parentColor;
+		parentPaint = new Paint();
+		parentPaint.setColor(((parentColor)&0xffffff)|(SPLATTER_OPACITY<<6));
 		position = new Vector(x,y);
 		particles = new ArrayList<Particle>();
 		Particle p;
@@ -92,6 +100,7 @@ public class Explosion extends Mob {
 			position.y += velocity.y;
 			velocity.x = velocity.x/(DECAY_FACTOR);
 			velocity.y = velocity.y/(DECAY_FACTOR);
+			g.backdrop.drawCircle(position.x, position.y, SPLATTER_SIZE, parentPaint);
 			if (duration > VISIBLE_DURATION) 
 				paint.setColor(paint.getColor()-((int)ALPHA_DELTA));
 		}

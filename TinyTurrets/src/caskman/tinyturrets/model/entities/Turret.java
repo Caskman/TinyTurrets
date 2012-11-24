@@ -84,7 +84,7 @@ public class Turret extends Mob {
 	
 	private void death(GameContext g) {
 		if (deathDuration == MAX_DEATH_DURATION) {
-			Explosion e = new Explosion(model,position.x,position.y);
+			Explosion e = new Explosion(model,position.x,position.y,color);
 			g.additions.add(e);
 			g.removals.add(this);
 			g.impulseStrength++;

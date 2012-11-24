@@ -7,8 +7,11 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PointF;
 import android.view.MotionEvent;
 import caskman.tinyturrets.model.entities.Bullet;
@@ -25,8 +28,9 @@ public class GameModel {
 	BlockingQueue<InputAction> inputQueue;
 	List<Layer> layers;
 	Vector offset;
-	float offsetDecayFactor = .5F;
-	float SCREEN_SHAKE_FACTOR = 15.0F;
+	static float offsetDecayFactor = .5F;
+	static float SCREEN_SHAKE_FACTOR = 15.0F;
+	Bitmap backdropBitmap;
 	
 	
 	public GameModel(Context context,Dimension dims) {
@@ -63,6 +67,9 @@ public class GameModel {
 		inputQueue = new ArrayBlockingQueue<InputAction>(10);
 		layers = getLayerList();
 		offset = new Vector();
+		backdropBitmap = Bitmap.createBitmap(screenDims.width, screenDims.height, Config.ARGB_8888);
+		Canvas c = new Canvas(backdropBitmap);
+		c.drawColor(Color.BLACK);
 	}
 	
 	public List<Layer> getLayerList() {
@@ -107,6 +114,7 @@ public class GameModel {
 		g.additions = new ArrayList<Mob>(10);
 		g.removals = new ArrayList<Mob>(10);
 		g.impulseStrength = 0;
+		g.backdrop = new Canvas(backdropBitmap);
 		
 		for (Mob m : explosions) {
 			m.update(g);
@@ -147,10 +155,16 @@ public class GameModel {
 	}
 	
 	public void draw(Canvas canvas,float interpol) {
-		canvas.drawColor(Color.BLACK);
+//		canvas.drawColor(Color.BLACK);
+		canvas.drawBitmap(backdropBitmap, 0, 0, null);
 		for (Layer l : layers) {
 			l.draw(canvas, interpol,offset);
 		}
+		
+//		Paint paint = new Paint();
+//		paint.setColor(0xffffffff);
+//		
+//		canvas.drawText(screenDims.width+" "+screenDims.height, 50, 50, paint);
 	}
 	
 	private Vector updateOffset(Vector offset,float offsetDecayFactor,int impulse) {
