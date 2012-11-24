@@ -67,9 +67,8 @@ public class GameModel {
 		inputQueue = new ArrayBlockingQueue<InputAction>(10);
 		layers = getLayerList();
 		offset = new Vector();
-		backdropBitmap = Bitmap.createBitmap(screenDims.width, screenDims.height, Config.ARGB_8888);
-		Canvas c = new Canvas(backdropBitmap);
-		c.drawColor(Color.BLACK);
+//		backdropBitmap = Bitmap.createBitmap(screenDims.width, screenDims.height, Config.ARGB_8888);
+//		Canvas c = new Canvas(backdropBitmap);
 	}
 	
 	public List<Layer> getLayerList() {
@@ -114,7 +113,7 @@ public class GameModel {
 		g.additions = new ArrayList<Mob>(10);
 		g.removals = new ArrayList<Mob>(10);
 		g.impulseStrength = 0;
-		g.backdrop = new Canvas(backdropBitmap);
+//		g.backdrop = new Canvas(backdropBitmap);
 		
 		for (Mob m : explosions) {
 			m.update(g);
@@ -155,8 +154,8 @@ public class GameModel {
 	}
 	
 	public void draw(Canvas canvas,float interpol) {
-//		canvas.drawColor(Color.BLACK);
-		canvas.drawBitmap(backdropBitmap, 0, 0, null);
+		canvas.drawColor(Color.BLACK);
+//		canvas.drawBitmap(backdropBitmap, offset.x, offset.y, null);
 		for (Layer l : layers) {
 			l.draw(canvas, interpol,offset);
 		}

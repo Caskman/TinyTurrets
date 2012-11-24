@@ -10,7 +10,7 @@ public class GameContext {
 	public List<Mob> additions;
 	public List<Mob> removals;
 	public int impulseStrength;
-	public Canvas backdrop;
+//	public Canvas backdrop;
 	
 	public GameContext() {
 	}
