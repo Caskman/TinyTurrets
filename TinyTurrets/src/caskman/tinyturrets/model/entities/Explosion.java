@@ -15,27 +15,19 @@ import caskman.tinyturrets.model.Vector;
 public class Explosion extends Mob {
 	  
 	private final static int NUM_PARTICLES = 30;
-	private final static int MAX_DURATION = 25;
-	private final static float PERCENT_ALPHA = 0.55F; // percentage of time explosion is fully visible
 	private final static int MAX_SPEED = 30;
 	private final static float DECAY_FACTOR = 1.08F;
+	private final static float PERCENT_ALPHA = 0.55F; // percentage of time explosion is fully visible
+	private final static int MAX_DURATION = 25;
+	private final static int ALPHA_DELTA = ((int)((0xff/MAX_DURATION)/PERCENT_ALPHA)) << 24;
+	private final static int VISIBLE_DURATION = (int) (MAX_DURATION*PERCENT_ALPHA);
 	
 	private List<Particle> particles;
 	private int duration;
-	private final static int ALPHA_DELTA = ((int)((0xff/MAX_DURATION)/PERCENT_ALPHA)) << 24;
-	private final static int VISIBLE_DURATION = (int) (MAX_DURATION*PERCENT_ALPHA);
-	static int SPLATTER_SIZE = 5;
-	static int SPLATTER_OPACITY = 0x3f000000;
-	int parentColor;
-	Paint parentPaint;
-	
 
-	public Explosion(GameModel model,float x, float y,int parentColor) {
+	public Explosion(GameModel model,float x, float y) {
 		super(model);
 		
-		this.parentColor = parentColor;
-		parentPaint = new Paint();
-		parentPaint.setColor(((parentColor)&0xffffff)|(SPLATTER_OPACITY));
 		position = new Vector(x,y);
 		particles = new ArrayList<Particle>();
 		Particle p;
