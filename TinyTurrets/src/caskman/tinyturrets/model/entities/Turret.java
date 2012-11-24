@@ -51,9 +51,9 @@ public class Turret extends Mob {
 	}
 
 	@Override
-	public void draw(Canvas canvas, float interpol) {
+	public void draw(Canvas canvas, float interpol,Vector offset) {
 		int radius = dims.height >> 1;
-		canvas.drawCircle(position.x,position.y,radius, paint);
+		canvas.drawCircle(position.x + offset.x,position.y + offset.y,radius, paint);
 	}
 
 	@Override
@@ -87,6 +87,7 @@ public class Turret extends Mob {
 			Explosion e = new Explosion(model,position.x,position.y);
 			g.additions.add(e);
 			g.removals.add(this);
+			g.impulseStrength++;
 		}
 		
 		

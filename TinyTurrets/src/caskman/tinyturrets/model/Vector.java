@@ -8,7 +8,8 @@ public class Vector {
 	public float y;
 	
 	public Vector() {
-		
+		x = 0;
+		y = 0;
 	}
 	
 	public Vector(float x,float y) {

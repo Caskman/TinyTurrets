@@ -43,10 +43,10 @@ public class Bullet extends Mob {
 	}
 
 	@Override
-	public void draw(Canvas canvas, float interpol) {
+	public void draw(Canvas canvas, float interpol,Vector offset) {
 		int radius = dims.width>>1; // divided by 2
-		float x = (position.x + velocity.x*interpol);
-		float y = (position.y + velocity.y * interpol);
+		float x = (position.x + velocity.x*interpol) + offset.x;
+		float y = (position.y + velocity.y * interpol) + offset.y;
 		canvas.drawCircle(x,y , radius, paint);
 	}
 

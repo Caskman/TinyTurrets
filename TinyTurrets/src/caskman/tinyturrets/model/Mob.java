@@ -58,7 +58,7 @@ public abstract class Mob {
 		return (f < 0)?-1*f:f;
 	}
 	
-	public abstract void draw(Canvas canvas, float interpol);
+	public abstract void draw(Canvas canvas, float interpol,Vector offset);
 	
 	public abstract void update(GameContext gContext);
 }

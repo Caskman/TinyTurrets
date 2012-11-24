@@ -44,9 +44,9 @@ public class Explosion extends Mob {
 	}
 
 	@Override
-	public void draw(Canvas canvas, float interpol) {
+	public void draw(Canvas canvas, float interpol,Vector offset) {
 		for (Particle p : particles) {
-			p.draw(canvas,interpol);
+			p.draw(canvas,interpol,offset);
 		}
 	}
 
@@ -80,10 +80,10 @@ public class Explosion extends Mob {
 		}
 
 		@Override
-		public void draw(Canvas canvas, float interpol) {
+		public void draw(Canvas canvas, float interpol,Vector offset) {
 //			int radius = dims.width>>1; // divided by 2
 //			canvas.drawCircle((position.x + velocity.x*interpol) - radius, (position.y + velocity.y * interpol) - radius, radius, paint);
-			canvas.drawCircle((position.x + velocity.x*interpol), (position.y + velocity.y * interpol), dims.width>>1, paint);
+			canvas.drawCircle((position.x + offset.x + velocity.x*interpol), (position.y + offset.y + velocity.y * interpol), dims.width>>1, paint);
 		}
 
 		@Override

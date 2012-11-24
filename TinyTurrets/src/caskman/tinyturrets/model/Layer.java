@@ -29,9 +29,9 @@ public class Layer implements Comparable<Layer> {
 		}
 	}
 	
-	public void draw(Canvas canvas,float interpol) {
+	public void draw(Canvas canvas,float interpol,Vector offset) {
 		for (Mob o : list) {
-			o.draw(canvas,interpol);
+			o.draw(canvas,interpol,offset);
 		}
 	}
 	

@@ -24,6 +24,8 @@ public class GameModel {
 	List<Mob> bullets;
 	BlockingQueue<InputAction> inputQueue;
 	List<Layer> layers;
+	Vector offset;
+	float offsetDecayFactor = .66F;
 	
 	
 	public GameModel(Context context,Dimension dims) {
@@ -59,6 +61,7 @@ public class GameModel {
 		bullets = new ArrayList<Mob>();
 		inputQueue = new ArrayBlockingQueue<InputAction>(10);
 		layers = getLayerList();
+		offset = new Vector();
 	}
 	
 	public List<Layer> getLayerList() {
@@ -102,6 +105,7 @@ public class GameModel {
 		g.turrets = turrets;
 		g.additions = new ArrayList<Mob>(10);
 		g.removals = new ArrayList<Mob>(10);
+		g.impulseStrength = 0;
 		
 		for (Mob m : explosions) {
 			m.update(g);
@@ -113,7 +117,7 @@ public class GameModel {
 			m.update(g);
 		}
 		
-		
+		offset = updateOffset(offset,offsetDecayFactor,g.impulseStrength);
 		
 		// filter new objects and deleted objects
 		
@@ -144,8 +148,18 @@ public class GameModel {
 	public void draw(Canvas canvas,float interpol) {
 		canvas.drawColor(Color.BLACK);
 		for (Layer l : layers) {
-			l.draw(canvas, interpol);
+			l.draw(canvas, interpol,offset);
 		}
 	}
 	
+	private Vector updateOffset(Vector offset,float offsetDecayFactor,int impulse) {
+		Vector tempOffset = Vector.scalar(offsetDecayFactor, offset);
+		
+		if (impulse > 0) {
+			float xImpulse = impulse*r.nextFloat();
+			float yImpulse = impulse*r.nextFloat();
+			tempOffset = Vector.add(new Vector(xImpulse,yImpulse), tempOffset);
+		}
+		return tempOffset;
+	}
 }
