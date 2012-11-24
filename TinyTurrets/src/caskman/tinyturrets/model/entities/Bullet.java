@@ -1,15 +1,13 @@
 package caskman.tinyturrets.model.entities;
 
-import java.util.List;
-
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.PointF;
 import android.util.FloatMath;
 import caskman.tinyturrets.model.Dimension;
 import caskman.tinyturrets.model.GameContext;
 import caskman.tinyturrets.model.GameModel;
 import caskman.tinyturrets.model.Mob;
+import caskman.tinyturrets.model.Vector;
 
 public class Bullet extends Mob {
 
@@ -28,17 +26,17 @@ public class Bullet extends Mob {
 		dims = new Dimension(5,5);
 		target = vic;
 		
-		PointF shooterP = new PointF(shooter.getX(),shooter.getY());
-		PointF vicP = new PointF(vic.getX(),vic.getY());
+		Vector shooterP = new Vector(shooter.getX(),shooter.getY());
+		Vector vicP = new Vector(vic.getX(),vic.getY());
 		
 		position = shooterP;
 		
-		PointF vector = new PointF(vicP.x - shooterP.x,vicP.y - shooterP.y);
+		Vector vector = new Vector(vicP.x - shooterP.x,vicP.y - shooterP.y);
 //		float mag = FloatMath.sqrt(vector.x*vector.x + vector.y*vector.y);
-//		vector = new PointF(vector.x/mag,vector.y/mag);
+//		vector = new Vector(vector.x/mag,vector.y/mag);
 		Float angle = (float) Math.atan(vector.y/vector.x);
 		angle = (float) ((vector.x < 0)?angle + Math.PI:angle);
-		velocity = new PointF(FloatMath.cos(angle)*speed,FloatMath.sin(angle)*speed);
+		velocity = new Vector(FloatMath.cos(angle)*speed,FloatMath.sin(angle)*speed);
 		
 		xDistCovered = 0;
 		xDistTarget = abs(vicP.x - shooterP.x);

@@ -1,4 +1,4 @@
-package caskman.blocks.model;
+package caskman.tinyturrets.model;
 
 import android.graphics.Rect;
 

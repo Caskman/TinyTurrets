@@ -6,11 +6,11 @@ import java.util.Random;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.PointF;
 import caskman.tinyturrets.model.Dimension;
 import caskman.tinyturrets.model.GameContext;
 import caskman.tinyturrets.model.GameModel;
 import caskman.tinyturrets.model.Mob;
+import caskman.tinyturrets.model.Vector;
 
 public class Explosion extends Mob {
 	  
@@ -28,14 +28,14 @@ public class Explosion extends Mob {
 	public Explosion(GameModel model,float x, float y) {
 		super(model);
 		
-		position = new PointF(x,y);
+		position = new Vector(x,y);
 		particles = new ArrayList<Particle>();
 		Particle p;
 		Random r = model.getRandom();
-		PointF vel;
+		Vector vel;
 		
 		for (int i = 0; i < NUM_PARTICLES; i++) {
-			vel = new PointF(r.nextFloat()-0.5F,r.nextFloat()-0.5F);
+			vel = new Vector(r.nextFloat()-0.5F,r.nextFloat()-0.5F);
 			p = new Particle(model,position.x,position.y,r.nextFloat(),vel,model.getRandColor());
 			particles.add(p);
 		}
@@ -67,15 +67,15 @@ public class Explosion extends Mob {
 		
 		private Paint paint;
 
-		public Particle(GameModel model,float xPos,float yPos,float speed,PointF direction,int color) {
+		public Particle(GameModel model,float xPos,float yPos,float speed,Vector direction,int color) {
 			super(model);
 			
 			paint = new Paint();
 			paint.setColor(color);
 			paint.setAntiAlias(true);
-			position = new PointF(xPos,yPos);
+			position = new Vector(xPos,yPos);
 			float actualSpeed = MAX_SPEED*speed;
-			velocity = new PointF(direction.x*actualSpeed,direction.y*actualSpeed);
+			velocity = new Vector(direction.x*actualSpeed,direction.y*actualSpeed);
 			dims = new Dimension(2,2);
 		}
 

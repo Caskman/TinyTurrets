@@ -1,4 +1,4 @@
-package caskman.blocks.model;
+package caskman.tinyturrets.model;
 
 import android.graphics.PointF;
 import android.util.FloatMath;

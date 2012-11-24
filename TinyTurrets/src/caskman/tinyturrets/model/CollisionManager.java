@@ -1,10 +1,9 @@
-package caskman.blocks.model;
+package caskman.tinyturrets.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Canvas;
-import caskman.blocks.model.entities.Blob;
 
 public class CollisionManager {
 	private static QuadTree qt;
@@ -62,35 +61,35 @@ public class CollisionManager {
 	}
 	
 	private static void resolveCollision(Collidable c1,Collidable c2) {
-		Blob a = (Blob) c1;
-		Blob b = (Blob) c2;
-		
-		Vector axisDisplacementA = Vector.displacement(b.getTempPosition(),a.getTempPosition());
-		Vector axisDisplacementB = Vector.displacement(a.getTempPosition(),b.getTempPosition());
-		axisDisplacementA = Vector.normalize(axisDisplacementA);
-		axisDisplacementB = Vector.normalize(axisDisplacementB);// calculate unit displacement vectors
-		
-		float axisVelocityInitialMagA = Vector.dot(axisDisplacementA,a.velocity);// calculate velocities along collision axis
-		float axisVelocityInitialMagB = Vector.dot(axisDisplacementB,b.velocity);
-		
-		Vector axisVelocityA = Vector.scalar(axisVelocityInitialMagA,axisDisplacementA);
-		Vector axisVelocityB = Vector.scalar(axisVelocityInitialMagB,axisDisplacementB);
-		
-		a.velocity = Vector.subtract(a.velocity,axisVelocityA); // take away velocity components along axis of collision
-		b.velocity = Vector.subtract(b.velocity,axisVelocityB);
-		
-		float axisVelocityFinalMagA = axisVelocityInitialMagB; // work out final velocity components along axis
-		float axisVelocityFinalMagB = axisVelocityInitialMagA;
-		
-		axisDisplacementA = Vector.scalar(axisVelocityFinalMagA,axisDisplacementA);
-		axisDisplacementB = Vector.scalar(axisVelocityFinalMagB,axisDisplacementB);
-		
-		a.velocity = Vector.add(a.velocity,axisDisplacementA);
-		b.velocity = Vector.subtract(b.velocity,axisDisplacementB);
-		
-		// collision resolution finished, refresh positions
-		a.setTempNextPosition(1.0F);
-		b.setTempNextPosition(1.0F);
+//		Blob a = (Blob) c1;
+//		Blob b = (Blob) c2;
+//		
+//		Vector axisDisplacementA = Vector.displacement(b.getTempPosition(),a.getTempPosition());
+//		Vector axisDisplacementB = Vector.displacement(a.getTempPosition(),b.getTempPosition());
+//		axisDisplacementA = Vector.normalize(axisDisplacementA);
+//		axisDisplacementB = Vector.normalize(axisDisplacementB);// calculate unit displacement vectors
+//		
+//		float axisVelocityInitialMagA = Vector.dot(axisDisplacementA,a.velocity);// calculate velocities along collision axis
+//		float axisVelocityInitialMagB = Vector.dot(axisDisplacementB,b.velocity);
+//		
+//		Vector axisVelocityA = Vector.scalar(axisVelocityInitialMagA,axisDisplacementA);
+//		Vector axisVelocityB = Vector.scalar(axisVelocityInitialMagB,axisDisplacementB);
+//		
+//		a.velocity = Vector.subtract(a.velocity,axisVelocityA); // take away velocity components along axis of collision
+//		b.velocity = Vector.subtract(b.velocity,axisVelocityB);
+//		
+//		float axisVelocityFinalMagA = axisVelocityInitialMagB; // work out final velocity components along axis
+//		float axisVelocityFinalMagB = axisVelocityInitialMagA;
+//		
+//		axisDisplacementA = Vector.scalar(axisVelocityFinalMagA,axisDisplacementA);
+//		axisDisplacementB = Vector.scalar(axisVelocityFinalMagB,axisDisplacementB);
+//		
+//		a.velocity = Vector.add(a.velocity,axisDisplacementA);
+//		b.velocity = Vector.subtract(b.velocity,axisDisplacementB);
+//		
+//		// collision resolution finished, refresh positions
+//		a.setTempNextPosition(1.0F);
+//		b.setTempNextPosition(1.0F);
 		
 	}
 

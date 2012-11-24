@@ -5,11 +5,11 @@ import java.util.List;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.PointF;
 import caskman.tinyturrets.model.Dimension;
 import caskman.tinyturrets.model.GameContext;
 import caskman.tinyturrets.model.GameModel;
 import caskman.tinyturrets.model.Mob;
+import caskman.tinyturrets.model.Vector;
 
 public class Turret extends Mob {
  
@@ -35,7 +35,7 @@ public class Turret extends Mob {
 	public Turret(GameModel model,float xPos, float yPos, int color) {
 		super(model);
 		
-		position = new PointF(xPos,yPos);
+		position = new Vector(xPos,yPos);
 		dims = new Dimension(size,size);
 		this.color = color;
 		paint = new Paint();

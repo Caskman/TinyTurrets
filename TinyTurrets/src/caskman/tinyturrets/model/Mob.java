@@ -8,10 +8,10 @@ import android.graphics.PointF;
 
 public abstract class Mob {
 	
-	protected PointF position; 
+	protected Vector position; 
 	protected Bitmap bitmap;
 	protected Dimension dims;
-	protected PointF velocity;
+	protected Vector velocity;
 	protected GameModel model;
 	
 	public Mob(GameModel model) {

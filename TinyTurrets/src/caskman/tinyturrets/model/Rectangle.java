@@ -1,4 +1,4 @@
-package caskman.blocks.model;
+package caskman.tinyturrets.model;
 
 public class Rectangle {
 	private int width;
