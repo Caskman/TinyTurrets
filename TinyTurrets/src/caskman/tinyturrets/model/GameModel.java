@@ -13,6 +13,7 @@ import android.graphics.PointF;
 import android.view.MotionEvent;
 import caskman.tinyturrets.model.entities.Bullet;
 import caskman.tinyturrets.model.entities.Explosion;
+import caskman.tinyturrets.model.entities.Splatter;
 import caskman.tinyturrets.model.entities.Turret;
 
 public class GameModel { 
@@ -22,6 +23,7 @@ public class GameModel {
 	List<Mob> explosions;
 	List<Mob> turrets;
 	List<Mob> bullets;
+	List<Mob> splatters;
 	BlockingQueue<InputAction> inputQueue;
 	List<Layer> layers;
 	Vector offset;
@@ -60,6 +62,7 @@ public class GameModel {
 		explosions = new ArrayList<Mob>();
 		turrets = new ArrayList<Mob>();
 		bullets = new ArrayList<Mob>();
+		splatters = new ArrayList<Mob>();
 		inputQueue = new ArrayBlockingQueue<InputAction>(10);
 		layers = getLayerList();
 		offset = new Vector();
@@ -70,14 +73,18 @@ public class GameModel {
 		Layer l;
 		
 		l = new Layer(0);
-		l.set(turrets);
+		l.set(splatters);
 		list.add(l);
 		
 		l = new Layer(1);
-		l.set(bullets);
+		l.set(turrets);
 		list.add(l);
 		
 		l = new Layer(2);
+		l.set(bullets);
+		list.add(l);
+		
+		l = new Layer(3);
 		l.set(explosions);
 		list.add(l);
 
@@ -117,6 +124,9 @@ public class GameModel {
 		for (Mob m : bullets) {
 			m.update(g);
 		}
+		for (Mob m : splatters) {
+			m.update(g);
+		}
 		
 		offset = updateOffset(offset,offsetDecayFactor,g.impulseStrength);
 		
@@ -129,6 +139,8 @@ public class GameModel {
 				bullets.remove(m);
 			} else if (m instanceof Turret) {
 				turrets.remove(m);
+			} else if (m instanceof Splatter) {
+				splatters.remove(m);
 			}
 		}
 		
@@ -140,6 +152,8 @@ public class GameModel {
 				bullets.add(m);
 			} else if (m instanceof Turret) {
 				turrets.add(m);
+			} else if (m instanceof Splatter) {
+				splatters.add(m);
 			}
 		}
 		

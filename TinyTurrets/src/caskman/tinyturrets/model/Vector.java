@@ -17,6 +17,11 @@ public class Vector {
 		this.y = y;
 	}
 	
+	public Vector(Vector vector) {
+		x = vector.x;
+		y = vector.y;
+	}
+	
 	public static Vector subtract(Vector u,Vector v) {
 		return new Vector(u.x-v.x,u.y-v.y);
 	}
