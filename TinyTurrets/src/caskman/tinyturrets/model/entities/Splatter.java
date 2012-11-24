@@ -17,12 +17,12 @@ import caskman.tinyturrets.model.Vector;
 public class Splatter extends Mob {
 	
 	static int SPLATTER_START_OPACITY = 0xff;
-	static int NUMBER_PARTICLES = 5;
+	static int NUMBER_PARTICLES = 20;
 	static float MAX_PARTICLE_VELOCITY = 30.0F;
 //	static float SPLATTER_BLOTCH_SIZE = 3.0F;
 	static int MAX_DURATION = 50;
 	static float PERCENT_VISIBLE = .55F;
-	static float STROKE_WIDTH = 5.0F;
+	static float STROKE_WIDTH = 20.0F;
 	static int BITMAP_SQ_DIM = 50;
 	
 	static int VISIBLE_DURATION = (int) (MAX_DURATION*PERCENT_VISIBLE);
@@ -41,14 +41,15 @@ public class Splatter extends Mob {
 		paint.setStyle(Style.FILL);
 		paint.setStrokeCap(Cap.ROUND);
 		paint.setStrokeWidth(STROKE_WIDTH);
+		paint.setAntiAlias(true);
 		duration = 0;
 //		particles = new ArrayList<SplatterParticle>(NUMBER_PARTICLES);
-		Bitmap map = Bitmap.createBitmap(BITMAP_SQ_DIM, BITMAP_SQ_DIM, Config.ARGB_8888);
-		Canvas canvas = new Canvas(map);
+		bitmap = Bitmap.createBitmap(BITMAP_SQ_DIM, BITMAP_SQ_DIM, Config.ARGB_8888);
+		Canvas canvas = new Canvas(bitmap);
 		float centerX = BITMAP_SQ_DIM>>1;
 		float centerY = BITMAP_SQ_DIM>>1;
-		
 		float half = MAX_PARTICLE_VELOCITY/2;
+		canvas.drawCircle(centerX, centerY, MAX_PARTICLE_VELOCITY/3, paint);
 		for (int i = 0; i < NUMBER_PARTICLES; i++) {
 			float xEnd = ((model.getRandom().nextFloat()*MAX_PARTICLE_VELOCITY) - half) + centerX;
 			float yEnd = ((model.getRandom().nextFloat()*MAX_PARTICLE_VELOCITY) - half) + centerY;
@@ -61,7 +62,7 @@ public class Splatter extends Mob {
 	@Override
 	public void draw(Canvas canvas, float interpol, Vector offset) {
 		float half = BITMAP_SQ_DIM>>1;
-		canvas.drawBitmap(bitmap,position.x+half+offset.x,position.y+half+offset.y,paint);
+		canvas.drawBitmap(bitmap,position.x-half+offset.x,position.y-half+offset.y,paint);
 	}
 
 	@Override
