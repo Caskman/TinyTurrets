@@ -6,6 +6,11 @@ import android.view.MotionEvent;
 public abstract class GameScreen {
 	
 	public ScreenState state;
+	public ScreenManager manager;
+	
+	public GameScreen(ScreenManager manager) {
+		this.manager = manager;
+	}
 	
 	public abstract void update();
 	

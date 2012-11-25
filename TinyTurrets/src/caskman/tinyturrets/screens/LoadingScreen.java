@@ -1,28 +1,31 @@
 package caskman.tinyturrets.screens;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.view.MotionEvent;
 
-public class BackgroundScreen extends GameScreen {
+public class LoadingScreen extends GameScreen {
 
-	public BackgroundScreen(ScreenManager manager) {
+	public LoadingScreen(ScreenManager manager) {
 		super(manager);
+		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public void update() {
-		
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void draw(Canvas canvas, float interpol) {
-		canvas.drawColor(Color.BLACK);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void manageInput(MotionEvent e) {
-		
+		// TODO Auto-generated method stub
+
 	}
 
 }
