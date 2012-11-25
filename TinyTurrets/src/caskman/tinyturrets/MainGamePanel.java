@@ -3,10 +3,7 @@ package caskman.tinyturrets;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -16,6 +13,7 @@ import android.view.WindowManager;
 import caskman.tinyturrets.model.Dimension;
 import caskman.tinyturrets.model.GameModel;
 import caskman.tinyturrets.model.Layer;
+import caskman.tinyturrets.screens.ScreenManager;
 
 public class MainGamePanel extends SurfaceView implements
 		SurfaceHolder.Callback {
@@ -23,10 +21,9 @@ public class MainGamePanel extends SurfaceView implements
 	private static final String TAG = MainGamePanel.class.getSimpleName();
 
 	private MainThread thread;
-	private List<Layer> layers;
 //	private List<Block> blocks;
-	private GameModel model;
 	private float INTERPOL = 0.0F;
+	private ScreenManager manager;
 
 	public MainGamePanel(Context context) {
 		super(context);
@@ -39,10 +36,12 @@ public class MainGamePanel extends SurfaceView implements
 
 		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
-
-		model = new GameModel(context,new Dimension(display.getWidth(),display.getHeight()));
 		
-		layers = model.getLayerList();
+		manager = new ScreenManager(context,new Dimension(display.getWidth(),display.getHeight()));
+
+//		model = new GameModel(context,new Dimension(display.getWidth(),display.getHeight()));
+		
+//		layers = model.getLayerList();
 //		blocks = model.getBlocks();
 		
 		// make the GamePanel focusable so it can handle events
@@ -80,12 +79,14 @@ public class MainGamePanel extends SurfaceView implements
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		thread.setPause(false);
-		model.manageInput(event);
+//		model.manageInput(event);
+		manager.manageInput(event);
 		return true;
 	}
 
 	public void updateModel() {
-		model.update();
+//		model.update();
+		manager.update();
 	}
 	
 	public void drawGame(Canvas canvas, float interpol) {
@@ -95,7 +96,8 @@ public class MainGamePanel extends SurfaceView implements
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
-		model.draw(canvas,INTERPOL);
+//		model.draw(canvas,INTERPOL);
+		manager.draw(canvas,INTERPOL);
 	}
 
 	public void setPause(boolean pause) {
