@@ -2,6 +2,8 @@ package caskman.tinyturrets.screens;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -13,12 +15,14 @@ public class ScreenManager {
 	private Context context;
 	private Dimension screenDims;
 	private List<GameScreen> screens;
+	private BlockingQueue<MotionEvent> inputQueue;
 	
 	public ScreenManager(Context context,Dimension screenDims) {
 		this.context = context;
 		this.screenDims = screenDims;
+		inputQueue = new ArrayBlockingQueue<MotionEvent>(10);
 		
-		initialize();
+		screens = new ArrayList<GameScreen>();
 	}
 	
 	public Context getContext() {
@@ -29,11 +33,24 @@ public class ScreenManager {
 		return screenDims;
 	}
 	
-	private void initialize() {
-		screens = new ArrayList<GameScreen>();
-	}
 	
 	public void update() {
+//		GameScreen g = screens.get(screens.size()-1);
+		List<GameScreen> screensToInput =  new ArrayList<GameScreen>();
+		for (int i = screens.size() - 1; i >= 0; i--) {
+			if (screens.get(i).state != ScreenState.HIDDEN) {
+				screensToInput.add(screens.get(i));
+			}
+		}
+		
+		while (!inputQueue.isEmpty()) {
+			MotionEvent e = inputQueue.poll();
+			for (GameScreen s : screensToInput) {
+				s.manageInput(e);
+			}
+//			g.manageInput(e);
+		}
+		
 		for (GameScreen s : screens) {
 			s.update();
 		}
@@ -41,21 +58,31 @@ public class ScreenManager {
 	
 	public void draw(Canvas canvas, float interpol) {
 		for (GameScreen s : screens) {
-			if (s.state != ScreenState.Hidden)
+			if (s.state != ScreenState.HIDDEN)
 				s.draw(canvas,interpol);
 		}
 	}
 	
 	public void manageInput(MotionEvent e) {
-		screens.get(screens.size()-1).manageInput(e);
+		inputQueue.offer(e);
+//		screens.get(screens.size()-1).manageInput(e);
 	}
 	
 	public void addScreen(GameScreen g) {
+		if (!screens.isEmpty()) {
+			GameScreen s = screens.get(screens.size()-1);
+			if (g.isFullscreen())
+				s.state = ScreenState.HIDDEN;
+			else 
+				s.state = ScreenState.PARTIALLYCOVERED;
+		}
 		screens.add(g);
 	}
 	
 	public void removeScreen(GameScreen g) {
 		screens.remove(g);
+		if (!screens.isEmpty())
+			screens.get(screens.size()-1).state = ScreenState.VISIBLE;
 	}
 	
 	public void exitAllScreens() {

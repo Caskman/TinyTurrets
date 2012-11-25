@@ -18,7 +18,7 @@ public class LoadingScreen extends GameScreen {
 	}
 	
 	private LoadingScreen(ScreenManager manager,boolean isSlowLoad,GameScreen[] screensToLoad) {
-		super(manager,ScreenState.Visible);
+		super(manager,true);
 		screens = screensToLoad;
 		this.isSlowLoad = isSlowLoad;
 		this.manager = manager;

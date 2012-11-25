@@ -2,15 +2,15 @@ package caskman.tinyturrets.screens;
 
 import android.graphics.Canvas;
 import android.view.MotionEvent;
-import caskman.tinyturrets.model.GameModel;
+import caskman.tinyturrets.model.SandboxGameModel;
 
-public class TinyTurretsScreen extends GameScreen {
+public class SandboxGameScreen extends GameScreen {
 
-	GameModel model;
+	SandboxGameModel model;
 	
-	public TinyTurretsScreen(ScreenManager manager) {
-		super(manager,ScreenState.Visible);
-		model = new GameModel(manager.getContext(),manager.getScreenDims());
+	public SandboxGameScreen(ScreenManager manager) {
+		super(manager,true);
+		model = new SandboxGameModel(manager.getContext(),manager.getScreenDims());
 	}
 
 	@Override
@@ -27,5 +27,6 @@ public class TinyTurretsScreen extends GameScreen {
 	public void manageInput(MotionEvent e) {
 		model.manageInput(e);
 	}
+	
 
 }

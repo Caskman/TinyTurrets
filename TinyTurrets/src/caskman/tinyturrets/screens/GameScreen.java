@@ -7,10 +7,16 @@ public abstract class GameScreen {
 	
 	public ScreenState state;
 	public ScreenManager manager;
+	private boolean isFullscreen;
 	
-	public GameScreen(ScreenManager manager,ScreenState state) {
+	public GameScreen(ScreenManager manager,boolean isFullscreen) {
 		this.manager = manager;
-		this.state = state;
+		this.state = ScreenState.VISIBLE;
+		this.isFullscreen = isFullscreen;
+	}
+	
+	public boolean isFullscreen() {
+		return isFullscreen;
 	}
 	
 	public abstract void update();

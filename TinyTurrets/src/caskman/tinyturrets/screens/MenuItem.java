@@ -53,6 +53,9 @@ public class MenuItem {
 	
 	public void draw(Canvas canvas,float interpol) {
 		if (isButton) {
+			Paint paint = new Paint();
+			paint.setColor(Color.BLACK);
+			canvas.drawRect(position.x, position.y, position.x+dims.width, position.y+dims.height, paint);
 			canvas.drawRect(position.x, position.y, position.x+dims.width, position.y+dims.height, borderPaint);
 		}
 		Rect rect = new Rect();

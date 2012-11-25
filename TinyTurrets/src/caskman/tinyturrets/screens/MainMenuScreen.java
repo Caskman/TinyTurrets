@@ -15,7 +15,7 @@ public class MainMenuScreen extends GameScreen {
 	private List<MenuItem> menuItems;
 	
 	public MainMenuScreen(ScreenManager manager) {
-		super(manager,ScreenState.PartiallyCovering);
+		super(manager,false);
 		initialize();
 	}
 	
@@ -31,7 +31,7 @@ public class MainMenuScreen extends GameScreen {
 		m.position = new Vector((manager.getScreenDims().width - m.dims.width)/2,2*(manager.getScreenDims().height - m.dims.height)/3);
 		m.addMenuItemListener(new MenuItemListener() {
 			public void itemActivated() {
-				GameScreen[] screens = {new TinyTurretsScreen(manager)};
+				GameScreen[] screens = {new SandboxGameScreen(manager)};
 				LoadingScreen.load(manager,screens,false);
 			}
 		});
@@ -71,4 +71,5 @@ public class MainMenuScreen extends GameScreen {
 		}
 	}
 
+	
 }

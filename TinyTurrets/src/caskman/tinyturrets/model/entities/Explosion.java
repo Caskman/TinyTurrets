@@ -36,7 +36,7 @@ public class Explosion extends Mob {
 		
 		for (int i = 0; i < NUM_PARTICLES; i++) {
 			vel = new Vector(r.nextFloat()-0.5F,r.nextFloat()-0.5F);
-			p = new Particle(model,position.x,position.y,r.nextFloat(),vel,model.getRandColor());
+			p = new Particle(model,position.x,position.y,r.nextFloat(),vel,model.getRandNotDarkColor());
 			particles.add(p);
 		}
 		
