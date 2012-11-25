@@ -8,8 +8,9 @@ public abstract class GameScreen {
 	public ScreenState state;
 	public ScreenManager manager;
 	
-	public GameScreen(ScreenManager manager) {
+	public GameScreen(ScreenManager manager,ScreenState state) {
 		this.manager = manager;
+		this.state = state;
 	}
 	
 	public abstract void update();

@@ -21,10 +21,16 @@ public class ScreenManager {
 		initialize();
 	}
 	
+	public Context getContext() {
+		return context;
+	}
+	
+	public Dimension getScreenDims() {
+		return screenDims;
+	}
+	
 	private void initialize() {
 		screens = new ArrayList<GameScreen>();
-		screens.add(new BackgroundScreen());
-		screens.add(new MainMenuScreen());
 	}
 	
 	public void update() {
@@ -44,4 +50,18 @@ public class ScreenManager {
 		screens.get(screens.size()-1).manageInput(e);
 	}
 	
+	public void addScreen(GameScreen g) {
+		screens.add(g);
+	}
+	
+	public void removeScreen(GameScreen g) {
+		screens.remove(g);
+	}
+	
+	public void exitAllScreens() {
+		for (int i = 0; i < screens.size(); i++) {
+			screens.set(i, null);
+		}
+		screens = new ArrayList<GameScreen>();
+	}
 }

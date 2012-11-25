@@ -2,30 +2,30 @@ package caskman.tinyturrets.screens;
 
 import android.graphics.Canvas;
 import android.view.MotionEvent;
+import caskman.tinyturrets.model.GameModel;
 
 public class TinyTurretsScreen extends GameScreen {
 
+	GameModel model;
+	
 	public TinyTurretsScreen(ScreenManager manager) {
-		super(manager);
-		// TODO Auto-generated constructor stub
+		super(manager,ScreenState.Visible);
+		model = new GameModel(manager.getContext(),manager.getScreenDims());
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-
+		model.update();
 	}
 
 	@Override
 	public void draw(Canvas canvas, float interpol) {
-		// TODO Auto-generated method stub
-
+		model.draw(canvas,interpol);
 	}
 
 	@Override
 	public void manageInput(MotionEvent e) {
-		// TODO Auto-generated method stub
-
+		model.manageInput(e);
 	}
 
 }

@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 public class BackgroundScreen extends GameScreen {
 
 	public BackgroundScreen(ScreenManager manager) {
-		super(manager);
+		super(manager,ScreenState.Visible);
 	}
 	
 	@Override
