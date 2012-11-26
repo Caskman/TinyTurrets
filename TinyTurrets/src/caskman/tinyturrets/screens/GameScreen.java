@@ -18,7 +18,8 @@ public abstract class GameScreen {
 		this.state = ScreenState.VISIBLE;
 		this.isFullscreen = isFullscreen;
 		transition = t;
-		transition.setGameScreen(this);
+		if (t != null)
+			transition.setGameScreen(this);
 		isTransitioning = false;
 	}
 	
@@ -40,6 +41,10 @@ public abstract class GameScreen {
 	
 	public void update() {
 		if (isTransitioning) {
+			if (transition.isDone()) {
+				manager.removeScreen(this);
+				return;
+			}
 			transition.updateTransition();
 		} else {
 			updateScreen();

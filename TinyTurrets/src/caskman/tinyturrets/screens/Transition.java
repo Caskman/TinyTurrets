@@ -7,10 +7,11 @@ public abstract class Transition {
 	
 	protected GameScreen screen;
 	protected int duration;
+	protected boolean isDone;
 	
 	public Transition() {
-		this.screen = screen;
 		duration = 0;
+		isDone = false;
 	}
 	
 	public void setGameScreen(GameScreen g) {
@@ -27,5 +28,9 @@ public abstract class Transition {
 	}
 	
 	protected abstract void updateTransition();
+	
+	public boolean isDone() {
+		return isDone;
+	}
 	
 }

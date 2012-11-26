@@ -9,7 +9,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
 import caskman.tinyturrets.model.Dimension;
-import caskman.tinyturrets.screens.BackgroundScreen;
 import caskman.tinyturrets.screens.MainMenuScreen;
 import caskman.tinyturrets.screens.ScreenManager;
 
@@ -36,7 +35,6 @@ public class MainGamePanel extends SurfaceView implements
 		Display display = wm.getDefaultDisplay();
 		
 		manager = new ScreenManager(context,new Dimension(display.getWidth(),display.getHeight()));
-		manager.addScreen(new BackgroundScreen(manager));
 		manager.addScreen(new MainMenuScreen(manager));
 //		model = new GameModel(context,new Dimension(display.getWidth(),display.getHeight()));
 		

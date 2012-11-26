@@ -51,7 +51,9 @@ public class ScreenManager {
 //			g.manageInput(e);
 		}
 		
-		for (GameScreen s : screens) {
+		GameScreen[] screensToUpdate = new GameScreen[screens.size()];
+		screens.toArray(screensToUpdate);
+		for (GameScreen s : screensToUpdate) {
 			s.update();
 		}
 	}
@@ -80,15 +82,24 @@ public class ScreenManager {
 	}
 	
 	public void removeScreen(GameScreen g) {
-		screens.remove(g);
-		if (!screens.isEmpty())
-			screens.get(screens.size()-1).state = ScreenState.VISIBLE;
+		int index = screens.indexOf(g);
+		screens.remove(index);
+		if (!screens.isEmpty()) {
+			if (index == screens.size())
+				screens.get(screens.size()-1).state = ScreenState.VISIBLE;
+		}
 	}
 	
 	public void exitAllScreens() {
-		for (int i = 0; i < screens.size(); i++) {
-			screens.set(i, null);
+		GameScreen[] screensToExit = new GameScreen[screens.size()];
+		screens.toArray(screensToExit);
+		for (GameScreen g : screensToExit) {
+			g.exitScreen();
 		}
-		screens = new ArrayList<GameScreen>();
 	}
+	public int getNumScreens() {
+		return screens.size();
+	}
+	
+	
 }

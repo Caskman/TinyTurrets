@@ -14,17 +14,17 @@ public class SandboxGameScreen extends GameScreen {
 	}
 
 	@Override
-	public void updateScreen() {
+	protected void updateScreen() {
 		model.update();
 	}
 
 	@Override
-	public void drawScreen(Canvas canvas, float interpol) {
+	protected void drawScreen(Canvas canvas, float interpol) {
 		model.draw(canvas,interpol);
 	}
 
 	@Override
-	public void manageScreenInput(MotionEvent e) {
+	protected void manageScreenInput(MotionEvent e) {
 		model.manageInput(e);
 	}
 	

@@ -18,17 +18,15 @@ public class LoadingScreen extends GameScreen {
 	}
 	
 	private LoadingScreen(ScreenManager manager,boolean isSlowLoad,GameScreen[] screensToLoad) {
-		super(manager,true,null);
+		super(manager,isSlowLoad,null);
 		screens = screensToLoad;
 		this.isSlowLoad = isSlowLoad;
 		this.manager = manager;
 	}
 
 	@Override
-	public void updateScreen() {
-		if (isSlowLoad) {
-			//TODO
-		} else {
+	protected void updateScreen() {
+		if (manager.getNumScreens() == 1) {
 			manager.removeScreen(this);
 			for (GameScreen g : screens) {
 				manager.addScreen(g);
@@ -37,16 +35,16 @@ public class LoadingScreen extends GameScreen {
 	}
 
 	@Override
-	public void drawScreen(Canvas canvas, float interpol) {
+	protected void drawScreen(Canvas canvas, float interpol) {
 		if (isSlowLoad) {
 			//TODO
 		} else {
-			canvas.drawColor(Color.BLACK);
+//			canvas.drawColor(Color.BLACK);
 		}
 	}
 
 	@Override
-	public void manageScreenInput(MotionEvent e) {
+	protected void manageScreenInput(MotionEvent e) {
 
 	}
 

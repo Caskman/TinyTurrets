@@ -7,19 +7,23 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.view.MotionEvent;
+import caskman.tinyturrets.model.BackgroundModel;
 import caskman.tinyturrets.model.Dimension;
+import caskman.tinyturrets.model.GameModel;
 import caskman.tinyturrets.model.Vector;
 
 public class MainMenuScreen extends GameScreen {
 	
 	private List<MenuItem> menuItems;
+	private GameModel model;
 	
 	public MainMenuScreen(ScreenManager manager) {
 		super(manager,false,new CircleTransition());
-		initialize();
+		initializeView();
+		model = new BackgroundModel(manager.getContext(),manager.getScreenDims());
 	}
 	
-	private void initialize() {
+	private void initializeView() {
 		menuItems = new ArrayList<MenuItem>();
 		MenuItem m;
 		
@@ -47,24 +51,25 @@ public class MainMenuScreen extends GameScreen {
 		m.position = new Vector((manager.getScreenDims().width - m.dims.width)/2,(manager.getScreenDims().height - m.dims.height)/4);
 		menuItems.add(m);
 		
-		
 	}
 	
 	
 	@Override
-	public void updateScreen() {
-		
+	protected void updateScreen() {
+		model.update();
 	}
 
 	@Override
-	public void drawScreen(Canvas canvas, float interpol) {
+	protected void drawScreen(Canvas canvas, float interpol) {
+		model.draw(canvas, interpol);
 		for (MenuItem m : menuItems) {
 			m.draw(canvas,interpol);
 		}
 	}
 
 	@Override
-	public void manageScreenInput(MotionEvent e) {
+	protected void manageScreenInput(MotionEvent e) {
+		model.manageInput(e);
 		for (MenuItem m : menuItems) {
 			m.manageInput(e);
 		}
