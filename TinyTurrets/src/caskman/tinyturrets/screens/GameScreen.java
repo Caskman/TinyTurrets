@@ -29,7 +29,11 @@ public abstract class GameScreen {
 	
 	public void exitScreen() {
 		if (transition != null) {
-			transition.start(manager.getLastDraw());
+			Bitmap map = Bitmap.createBitmap(manager.getScreenDims().width, manager.getScreenDims().height, Config.ARGB_8888);
+			Canvas canvas = new Canvas(map);
+			drawScreen(canvas,0.0F);
+			transition.start(map);
+//			transition.start(manager.getLastDraw());
 			isTransitioning = true;
 		} else {
 			manager.removeScreen(this);
