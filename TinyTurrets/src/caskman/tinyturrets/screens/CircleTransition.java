@@ -29,7 +29,8 @@ public class CircleTransition extends Transition {
 		if (radius < 0F)
 			radius = 0F;
 		float interpolRadius = radius - interpol*radiusInc;
-		canvas.drawColor(Color.BLUE);
+		canvas.drawColor(Color.WHITE);
+//		canvas.drawColor(0xff0d0053);
 		Path p = new Path();
 		p.addCircle(screen.manager.getScreenDims().width>>1, screen.manager.getScreenDims().height>>1, interpolRadius, Direction.CW);
 		canvas.clipPath(p);
