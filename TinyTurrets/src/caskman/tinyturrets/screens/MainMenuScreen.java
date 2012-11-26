@@ -15,7 +15,7 @@ public class MainMenuScreen extends GameScreen {
 	private List<MenuItem> menuItems;
 	
 	public MainMenuScreen(ScreenManager manager) {
-		super(manager,false);
+		super(manager,false,new CircleTransition());
 		initialize();
 	}
 	
@@ -52,20 +52,19 @@ public class MainMenuScreen extends GameScreen {
 	
 	
 	@Override
-	public void update() {
+	public void updateScreen() {
 		
 	}
 
 	@Override
-	public void draw(Canvas canvas, float interpol) {
-		Vector zero = new Vector();
+	public void drawScreen(Canvas canvas, float interpol) {
 		for (MenuItem m : menuItems) {
 			m.draw(canvas,interpol);
 		}
 	}
 
 	@Override
-	public void manageInput(MotionEvent e) {
+	public void manageScreenInput(MotionEvent e) {
 		for (MenuItem m : menuItems) {
 			m.manageInput(e);
 		}

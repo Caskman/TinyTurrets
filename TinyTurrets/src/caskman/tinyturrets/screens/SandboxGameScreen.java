@@ -9,22 +9,22 @@ public class SandboxGameScreen extends GameScreen {
 	SandboxGameModel model;
 	
 	public SandboxGameScreen(ScreenManager manager) {
-		super(manager,true);
+		super(manager,true,null);
 		model = new SandboxGameModel(manager.getContext(),manager.getScreenDims());
 	}
 
 	@Override
-	public void update() {
+	public void updateScreen() {
 		model.update();
 	}
 
 	@Override
-	public void draw(Canvas canvas, float interpol) {
+	public void drawScreen(Canvas canvas, float interpol) {
 		model.draw(canvas,interpol);
 	}
 
 	@Override
-	public void manageInput(MotionEvent e) {
+	public void manageScreenInput(MotionEvent e) {
 		model.manageInput(e);
 	}
 	
