@@ -2,20 +2,17 @@ package caskman.tinyturrets.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.PointF;
 import android.view.MotionEvent;
 import caskman.tinyturrets.model.entities.Bullet;
 import caskman.tinyturrets.model.entities.Explosion;
+import caskman.tinyturrets.model.entities.IntroText;
 import caskman.tinyturrets.model.entities.Splatter;
 import caskman.tinyturrets.model.entities.Turret;
 
@@ -24,6 +21,7 @@ public class SandboxGameModel extends GameModel {
 	List<Mob> turrets;
 	List<Mob> bullets;
 	List<Mob> splatters;
+	List<Mob> texts;
 	BlockingQueue<InputAction> inputQueue;
 	List<Layer> layers;
 	Vector offset;
@@ -41,6 +39,8 @@ public class SandboxGameModel extends GameModel {
 		turrets = new ArrayList<Mob>();
 		bullets = new ArrayList<Mob>();
 		splatters = new ArrayList<Mob>();
+		texts = new ArrayList<Mob>();
+		texts.add(new IntroText(this));
 		inputQueue = new ArrayBlockingQueue<InputAction>(10);
 		layers = getLayerList();
 		offset = new Vector();
@@ -66,6 +66,10 @@ public class SandboxGameModel extends GameModel {
 		
 		l = new Layer(3);
 		l.set(explosions);
+		list.add(l);
+		
+		l = new Layer(4);
+		l.set(texts);
 		list.add(l);
 
 		return list;
@@ -110,6 +114,9 @@ public class SandboxGameModel extends GameModel {
 		for (Mob m : splatters) {
 			m.update(g);
 		}
+		for (Mob m : texts) {
+			m.update(g);
+		}
 		
 		offset = updateOffset(offset,offsetDecayFactor,g.impulseStrength);
 		
@@ -124,6 +131,8 @@ public class SandboxGameModel extends GameModel {
 				turrets.remove(m);
 			} else if (m instanceof Splatter) {
 				splatters.remove(m);
+			} else if (m instanceof IntroText) {
+				texts.remove(m);
 			}
 		}
 		
